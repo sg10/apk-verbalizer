@@ -1,0 +1,144 @@
+#cloud_container {
+    width: 100% !important;
+    min-height: 25em;
+    font-size: 110%;
+}
+
+#text_container {
+    font-size: 1pt;
+}
+
+#text_container span {
+    font-size: 12pt;
+    padding-top: 0.1em;
+    padding-bottom: 0.1em;
+}
+
+#app_icon_col img {
+    margin-top: 10px;
+}
+
+.w10, .w9, .w8, .w7, .w6, .w5, .w4, .w3, .w2, .w1 {
+    color: black !important;
+}
+
+.badge {
+    color: white;
+}
+
+li.active * {
+    color: white !important;
+}
+
+ul.typeahead * {
+    color: black !important;
+}
+
+#main_content_container {
+    display: none;
+}
+
+#main_loading {
+    margin: auto;
+    margin-top: 6em;
+    max-width: 300px;
+}
+
+#main_loading p {
+    margin-top: 2em;
+}
+
+.btn:not(:disabled):not(.disabled) {
+    cursor: pointer;
+}
+
+#template_app_list {
+    display: none;
+}
+
+#text_actual {
+    overflow-y: scroll;
+    max-height: 25em;
+}
+
+#minitoast {
+    position: fixed;
+    bottom: 0;
+    z-index: 250;
+    display: none;
+    width: 100%;
+}
+
+#minitoast_text {
+    color: white;
+    text-align: center;
+    padding: 0.5em 0;
+    background: rgb(33, 37, 41);
+}
+
+a#store_link {
+}
+
+a#store_link i {
+    font-size: 100%;
+}
+
+.template_permission_list {
+    display: none !important;
+}
+
+.card-body h6 {
+    color: rgb(0, 123, 255);
+    font-weight: bold;
+}
+
+.card-body h6 i.material-icons {
+    vertical-align: middle;
+}
+
+.card-body h6 a {
+    cursor: pointer;
+}
+
+.template_reasoning_list {
+    display: none !important;
+}
+
+#input_reasoning_list .progress-bar {
+    text-shadow: 1px 1px 1px #555;
+}
+
+.template {
+    display: none;
+}
+
+#input_influences {
+    display: none;
+    min-height: 25em;
+}
+
+#input_influences {
+    font-size: 11pt;
+}
+
+#input_influences .inf_class, #input_influences .inf_method {
+    font-family: 'Inconsolata', sans-serif;
+}
+
+#input_influences .inf_class {
+    font-weight: bold;
+}
+
+#input_influences .inf_heat {
+    font-size: 10pt;
+    width: 5em;
+}
+
+.templates {
+    display: none !important;
+}
+
+.jqcloud span {
+    cursor: pointer;
+}
+

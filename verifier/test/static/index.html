@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="" name="description">
+    <meta content="" name="author">
+
+    <title>Code between the Lines: Semantic Analysis of Android Applications</title>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud.css" rel="stylesheet">
+    <link href="https://mistic100.github.io/jQCloud/assets/css/style.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
+    <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700&display=swap" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+
+<div id="minitoast">
+    <div id="minitoast_text">Toast</div>
+</div>
+
+
+<div class="templates">
+
+    <div class="template_influence_method">
+        <span class="badge badge-pill badge-primary inf_heat"></span>
+        <span class="inf_class"></span>::
+        <span class="inf_method"></span>()
+    </div>
+
+</div>
+
+
+<header>
+
+    <div class="collapse bg-dark" id="navbarHeader">
+        <div class="container">
+            <div class="col-sm-4" id="template_app_list">
+                <div class="card m-0 mr-1 mb-1">
+                    <div class="card-body p-0 m-0">
+                        <div class="l-app-title">
+                            <a style="cursor:pointer" class="btn_description"><span class="title p-1 align-middle"></span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row pt-3" id="apps_list"></div>
+        </div>
+    </div>
+    <div class="navbar navbar-dark bg-dark shadow-sm">
+        <div class="container d-flex justify-content-between">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <strong>Code between the Lines: Semantic Analysis of Android Applications (IFIP SEC 2020)</strong>
+            </a>
+            <button aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation"
+                    class="navbar-toggler" data-target="#navbarHeader" data-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<div class="container" id="main_content_container">
+
+    <div class="row">
+        <div class="col-md-2 py-4" id="app_icon_col">
+            <img alt="" class="d-block mx-auto mb-4" height="100" id="app_icon" src="" width="100">
+        </div>
+        <div class="col-md-10 py-4">
+            <h1 id="app_name"></h1>
+            <div>
+                <strong>Package</strong> <span id="package"></span>
+                <a href="#" id="store_link" target="_blank">
+                    <i class="material-icons">&#xe89e;</i>
+                </a>
+            </div>
+            <div>
+                <strong>Version</strong> <span id="version"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="panel_a2t">
+        <div class="col-md-4 order-md-2 mb-4">
+            <div class="btn-group btn-group-toggle mb-2 w-100" data-toggle="buttons">
+                <label class="btn btn-primary active">
+                    <input autocomplete="off" checked name="pred_actual" type="radio" value="prediction"> Prediction
+                </label>
+                <label class="btn btn-primary">
+                    <input autocomplete="off" name="pred_actual" type="radio" value="actual"> Actual
+                </label>
+            </div>
+            <ul class="list-group mb-3" id="mode">
+                <li class="list-group-item list-group-item-action">
+                    <div>
+                        <h6 class="my-0"><a href="javascript:;" id="btn_show_combined">Combined Analysis</a></h6>
+                        <small class="text-muted">Merged sub-analyses</small>
+                    </div>
+                </li>
+                <li class="list-group-item list-group-item-action">
+                    <div>
+                        <h6 class="my-0"><a href="javascript:;" id="btn_show_strings">Strings Analysis</a></h6>
+                        <small class="text-muted">String values in Java source code level and XML files</small>
+                    </div>
+                </li>
+                <li class="list-group-item list-group-item-action">
+                    <div>
+                        <h6 class="my-0"><a href="javascript:;" id="btn_show_ids">Identifier Analysis</a></h6>
+                        <small class="text-muted">XML resource identifier attributes</small>
+                    </div>
+                </li>
+                <li class="list-group-item list-group-item-action">
+                    <div>
+                        <h6 class="my-0"><a href="javascript:;" id="btn_show_methods">Methods Analysis</a></h6>
+                        <small class="text-muted">Triggered Android API calls</small>
+                    </div>
+                </li>
+            </ul>
+            <div class="card" id="prediction_quality">
+                <div class="card-body">
+                    <h6>Estimated Prediction Quality</h6>
+                    <div class="progress">
+                        <div class="progress-bar"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="card" id="text_actual">
+                <div class="card-body">
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8 order-md-1">
+            <div class="card" id="mode_predicted_words">
+                <div class="card-body">
+                    <div id="cloud_description">
+                        <h6>Description Fragments</h6>
+                        <div id="cloud_container"></div>
+                    </div>
+                    <div id="input_influences"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="my-5 pt-5 text-muted text-center text-small">
+
+    </footer>
+</div>
+
+<div class="text-center" id="main_loading">
+    <div class="spinner-grow" role="status">
+        <span class="sr-only">Loading ...</span>
+    </div>
+    <p>Loading ...</p>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script crossorigin="anonymous"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqcloud/1.0.4/jqcloud-1.0.4.min.js"></script>
+<script src="https://www.jqueryscript.net/demo/jQuery-Bootstrap-4-Typeahead-Plugin/bootstrap3-typeahead.js"></script>
+<script src="scripts.js"></script>
+</body>
+</html>
