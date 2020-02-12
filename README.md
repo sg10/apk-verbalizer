@@ -1,17 +1,28 @@
-APK Verbalizer
-==============
+# Code between the Lines: Semantic Analysis of Android Applications
 
-**tl;dr an occurrence-based representation of the app's resource identifiers, string constants, and API method calls, is used to predict phrases of the description.**
+This is the implementation of our framework to generate natural language text describing the purpose and core functionality of Android applications based on their actual code, as presented at IFIP SEC 2020.
+See the [paper](https://graz.pure.elsevier.com/en/publications/code-between-the-lines-semantic-analysis-of-android-applications) by Feichtner and Gruber for more details.
 
-The APK verbalizer extracts static parts from an APK as well as source code.
-In particular, given an individual application package, including source code and resource files, the system should come up with an overall picture of what the app does. 
-Therefore, three different neural networks are trained to output description fragments. The first network receives all resource identifiers an app holds in its XML files. The second one gets string constants found in the app's source code and its XML files. The third model gets all method calls an app makes to the Android API. All inputs and outputs, i.e., descriptions, identifiers, strings, and methods, are represented via term frequency--inverse document frequency (TF-IDF), a commonly used text representation algorithm. After training, the SHAP framework is used to provide explanations for the predictions, e.g., in case a predicted description phrase is *photo frame* it might be inferred from static resources in the app that contain tokens like *photo*, *crop*, *frame*, or similar. Model explanations make the predictions more reliable since we use non-manually labeled samples.
-The three models of this description inference system often output very concise, generalizing illustrations of what an app does.
+In this repository you find our solution for:
 
+- Deriving concise keywords and short phrases that indicate the main purpose of apps,
+- Extracting semantic knowledge from resource identifiers, string constants, and API calls,
+- Explaining predictions using the SHAP algorithm.
 
+## Abstract
+
+> Static and dynamic program analysis are the key concepts researchers apply to uncover security-critical implementation weaknesses in Android applications. As it is often not obvious in which context problematic statements occur, it is challenging to assess their practical impact. While some flaws may turn out to be bad practice but not undermine the overall security level, others could have a serious impact. Distinguishing them requires knowledge of the designated app purpose.
+>
+> In this paper, we introduce a machine learning-based system that is capable of generating natural language text describing the purpose and core functionality of Android apps based on their actual code. We design a dense neural network that captures the semantic relationships of resource identifiers, string constants, and API calls contained in apps to derive a high-level picture of implemented program behavior. For arbitrary applications, our system can predict precise, human-readable keywords and short phrases that indicate the main use-cases apps are designed for.
+>
+> We evaluate our solution on 67,040 real-world apps and find that with a precision between 69% and 84% we can identify keywords that also occur in the developer-provided description in Google Play. To avoid incomprehensible black box predictions, we apply a model explaining algorithm and demonstrate that our technique can substantially augment inspections of Android apps by contributing contextual information.
+
+## Setup
 
 ```bash
 conda install -c anaconda keras nltk pillow scikit-learn
 conda install -c conda-forge langdetect shap
 pip install androguard javalang
 ```
+
+Sample output the framework produces can be found at https://sg10.github.io/apk-verbalizer/
